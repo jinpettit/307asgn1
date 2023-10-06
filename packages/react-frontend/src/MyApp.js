@@ -14,7 +14,12 @@ function MyApp() {
   }
 
   function updateList(person) {
-    setCharacters([...characters, person]);
+    postUser(person)
+      .then((res) => (res.status === 201 ? res.json() : Promise.reject(res)))
+      .then((json) => setCharacters([...characters, json]))
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   function fetchUsers() {
@@ -32,14 +37,6 @@ function MyApp() {
     });
 
     return promise;
-  }
-
-  function updateList(person) { 
-    postUser(person)
-      .then(() => setCharacters([...characters, person]))
-      .catch((error) => {
-        console.log(error);
-      })
   }
   
   useEffect(() => {
