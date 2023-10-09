@@ -8,11 +8,18 @@ function MyApp() {
 
   function updateList(person) {
     postUser(person)
-      .then((res) => (res.status === 201 ? res.json() : Promise.reject(res)))
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } 
+        else {
+          Promise.reject(res);
+        }
+      })
       .then((json) => setCharacters([...characters, json]))
       .catch((error) => {
         console.log(error);
-      })
+      });
   }
 
   function fetchUsers() {
@@ -69,7 +76,6 @@ function MyApp() {
         console.log(error);
       });
   }
-
 
   return (
     <div className="container">
