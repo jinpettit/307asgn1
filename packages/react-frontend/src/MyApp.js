@@ -42,10 +42,9 @@ function MyApp() {
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
-      .then((json) => setCharacters(json["users_list"]))
+      .then((json) => setCharacters(json))
       .catch((error) => { console.log(error); });
   }, [] );
-
 
   function deleteUser(id) {
     return fetch(`http://localhost:8000/users/${id}`, {
@@ -57,7 +56,7 @@ function MyApp() {
   }
 
   function removeOneCharacter(index) {
-    deleteUser(characters[index].id)
+    deleteUser(characters[index]._id)
       .then(
         (res) => {
           if (res.status === 204) {
