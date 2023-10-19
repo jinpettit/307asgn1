@@ -85,6 +85,7 @@ app.delete("/users/:id", (req, res) => {
       }
    });
 
+
 app.get("/users", (req, res) => {
       const name = req.query.name;
       const job = req.query.job;
@@ -116,7 +117,14 @@ const findUserById = (id) =>
  
 
 function deleteUser(id) {
-   return users["users_list"] = users["users_list"].filter((user) => {user["id"] !== id;});
+   let userInList = false;
+   users["users_list"] = users["users_list"].filter((user) => {
+      if (user["id"] === id) {
+         userInList = true;
+      }
+      return user["id"] !== id;
+   });
+   return userInList;
 }
 
 const findUserByJobAndName = (job, name) => {
